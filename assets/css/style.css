@@ -1,0 +1,17 @@
+body {
+    background-image: url("./../images/dessert.jpg");
+    background-size: 100%, 100%;
+    background-repeat: no-repeat;
+    font-size: 26px;
+}
+
+.container {
+    height: 500px;
+    background-color: rgba(87,0,217,0.350);
+    margin-top: 50px;
+    color: rgb(255, 255, 255);
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    text-align: center;
+}
+
