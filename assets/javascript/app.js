@@ -1,56 +1,56 @@
 $(document).ready(function () {
-    //create object with variable for question and answer choices
-    var one = {
-        question: "Is this working?",
-        answer: ["yes", "no", "almost", "not even close"]
+    //create array of each set of questions and answers
+    var triviaArray = [{
+            question: "Petit Gateau is French for:",
+            answer: ["small dessert", "small chocolate", "small cake", "tiny cake"]
+        },
+        {
+            question: "A perfectly tempered chocolate is known for its:",
+            answer: ["shine", "snap", "smell", "color"]
+        },
+        {
+            question: "This popular dessert was originally made without filling:",
+            answer: ["macaron", "oreo", "whoopie pie", "eclair"]
+        },
+        {
+            question: "Which ingredient is NOT required to bake a cake?",
+            answer: ["butter", "sugar", "eggs", "flour"]
+        },
+        {
+            question: "Which of these is America's favorite pie?",
+            answer: ["pumpkin", "apple", "pizza", "cherry"]
+        },
+        {
+            question: "Where was ice cream first made?",
+            answer: ["USA", "China", "Italy", "France"]
+        },
+        {
+            question: "Where was the first chocolate chip cookie made?",
+            answer: ["USA", "China", "Italy", "France"]
+        }
+    ]
+    //create variable for choosing random set from array
+    var random = Math.floor(Math.random() * triviaArray.length);
+    var solution = triviaArray[random];
+    //create function for displaying a questions/answers set
+    function displayQuestion (){
+    $("#question").html(solution.question);
+    $("#optionOne").html(solution.answer[0]);
+    $("#optionTwo").html(solution.answer[1]);
+    $("#optionThree").html(solution.answer[2]);
+    $("#optionFour").html(solution.answer[3]);
     }
-    //create a second object with variable for question and answer choices
-    var two = {
-        question: "Are you seeing any change?",
-        answer: ["none", "minor", "major", "not today"]
-    }
-    //create function for first question
-    function first() {
-        //make the question and answer choices appear on the screen
-        $("#question").html(one.question);
-        $("#optionOne").html(one.answer[0]);
-        $("#optionTwo").html(one.answer[1]);
-        $("#optionThree").html(one.answer[2]);
-        $("#optionFour").html(one.answer[3]);
-        //create on click function for when the correct answer is chosen
-        $("#optionOne").on("click", function () {
-            $("#optionTwo").html("Correct!");
-            $("#optionOne, #optionThree, #optionFour").empty();
-        });
-        //create on click function for when the wrong answer is chosen
-        $("#optionTwo, #optionThree, #optionFour").on("click", function () {
-            $("#optionOne").html("Good guess!");
-            $("#optionThree").html("The correct answer is 'yes'");
-            $("#optionTwo, #optionFour").empty();
-        });
-    }
-    //create function for second question
-    function second() {
-        $(".container").on("click", function () {
-            $("#question").html(two.question);
-            $("#optionOne").html(two.answer[0]);
-            $("#optionTwo").html(two.answer[1]);
-            $("#optionThree").html(two.answer[2]);
-            $("#optionFour").html(two.answer[3]);
-        });
-        //create on click function for when the correct answer is chosen
-        $("#optionThree").on("click", function () {
-            $("#optionTwo").html("Correct!");
-            $("#optionOne, #optionThree, #optionFour").empty();
-        });
-        //create on click function for when the wrong answer is chosen
-        $("#optionOne, #optionTwo, #optionFour").on("click", function () {
-            $("#optionOne").html("Good guess!");
-            $("#optionThree").html("The correct answer is 'major'");
-            $("#optionTwo, #optionFour").empty();
-        });
-    }
-    //call each function and the questions/answers change
-first();
-second();
+    //create function to display the first question when begin button is clicked
+    $("#begin").on("click", function (){
+        $("#begin").hide();
+        displayQuestion ();
+    });
+    //create function to determine if user clicked correct answer
+    // $("#optionOne, #optionTwo, #optionThree, #optionFour").on("click", function(){
+    //     if (this.id === true){
+    //         console.log(this.id);
+    //         console.log(true);
+            // $("#optionOne").html("Correct!");
+    //     }
+    // });
 });
