@@ -90,12 +90,12 @@ window.onload = (function () {
                 $("#question").html("Correct!");
                 correct++;
                 stopTimer();
-                startQuesTimer();
+                startQuesTimer ();
             } else {
                 $("#question").html("Good Guess!<br>The correct answer is: " + solution.correct);
                 incorrect++;
                 stopTimer();
-                startQuesTimer();
+                startQuesTimer ();
             }
         });
     }
@@ -111,7 +111,6 @@ window.onload = (function () {
             timerInterval = setInterval(runTimer, 1000);
             $("#question, #answers").empty();
             displayQuestion();
-            correctOrNot();
         }
     }
 });
