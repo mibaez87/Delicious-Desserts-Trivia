@@ -62,42 +62,45 @@ window.onload = (function () {
         clearInterval(timerInterval);
     }
 
+    //create function to display the first question when begin button is clicked
+    function firstQuestion (){
+    $("#begin").on("click", function () {
+        $("#begin").hide();
+        timerInterval = setInterval(runTimer, 1000);
+        displayQuestion();
+        correctOrNot();
+    });
+    }
+    firstQuestion ();
+
     //create function for displaying a questions/answers set
     function displayQuestion() {
         timer = 21;
         runTimer();
         $("#question").html(solution.question);
         for (var i = 0; i < solution.answer.length; i++) {
-            var answerButton = $("<button class='answerButton' id='button' data-name='" + solution.answer[i] + "'>" + solution.answer[i] + "</button><br><br>");
+            var answerButton = $("<button class='answerButton' id='button' data-name='" + solution.answer[i] + "'>" + solution.answer[i] + "</button><br>");
             $("#answers").append(answerButton);
         }
     }
 
-    //create function to display the first question when begin button is clicked
-    $("#begin").on("click", function () {
-        $("#begin").hide();
-        timerInterval = setInterval(runTimer, 1000);
-        displayQuestion();
-        correctOrNot ();
-    });
-
     //create on click function to determine if user picked correctly
-    function correctOrNot (){
-    $(document).on("click", "#button", function () {
-        var userPick = $(this).data("name");
+    function correctOrNot() {
+        $(document).on("click", "#button", function () {
+            var userPick = $(this).data("name");
 
-        if (userPick == solution.correct) {
-            $("#question").html("Correct!");
-            correct++;
-            stopTimer();
-            startQuesTimer();
-        } else {
-            $("#question").html("Good Guess!<br>The correct answer is: " + solution.correct);
-            incorrect++;
-            stopTimer();
-            startQuesTimer();
-        }
-    });
+            if (userPick == solution.correct) {
+                $("#question").html("Correct!");
+                correct++;
+                stopTimer();
+                startQuesTimer();
+            } else {
+                $("#question").html("Good Guess!<br>The correct answer is: " + solution.correct);
+                incorrect++;
+                stopTimer();
+                startQuesTimer();
+            }
+        });
     }
 
     //create function to count down 3 seconds between questions
@@ -109,9 +112,9 @@ window.onload = (function () {
         if (questionTimer === 5) {
             stopTimer();
             timerInterval = setInterval(runTimer, 1000);
-            $("#question, #answers").empty ();
+            $("#question, #answers").empty();
             displayQuestion();
-            correctOrNot ();
+            correctOrNot();
         }
     }
 });
