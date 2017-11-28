@@ -42,42 +42,55 @@ window.onload = (function () {
 
     var timer = 20; //tells timer where to start
     var timerInterval;
-    var index = 0;
     var correct = 0;
     var incorrect = 0;
 
     //create function to start and display timer countdown
-    function startTimer (){
+    function startTimer() {
         timer--;
         $("#timer").html(timer);
+        if (timer === 0) {
+            $("#timer").html("You're out of time!<br>");
+            $("#question").html("The correct answer is: " + solution.correct);
+            incorrect++;
+            stopTimer();
+        }
+    }
+
+    //create function to stop the timer
+    function stopTimer() {
+        clearInterval(timerInterval);
     }
 
     //create function for displaying a questions/answers set
-    function displayQuestion (){
-    $("#timer").html(timer);
-    $("#question").html(solution.question);
-    for (var i=0; i < solution.answer.length; i++){
-        var answerButton = $("<button class='answerButton' id='button' data-name='" + solution.answer[i] + "'>" + solution.answer[i] + "</button>");
-        $("#answers").append(answerButton);
-    }}
+    function displayQuestion() {
+        $("#timer").html(timer);
+        $("#question").html(solution.question);
+        for (var i = 0; i < solution.answer.length; i++) {
+            var answerButton = $("<button class='answerButton' id='button' data-name='" + solution.answer[i] + "'>" + solution.answer[i] + "</button>");
+            $("#answers").append(answerButton);
+        }
+    }
 
     //create function to display the first question when begin button is clicked
-    $("#begin").on("click", function (){
-        $("#begin").hide();
-        displayQuestion ();
-        timerInterval = setInterval(startTimer, 1000);
-    });
+        $("#begin").on("click", function () {
+            $("#begin").hide();
+            displayQuestion();
+            timerInterval = setInterval(startTimer, 1000);
+        });
 
     //create on click function to determine if user picked correctly
-    $(document).on("click", "#button", function() {
+    $(document).on("click", "#button", function () {
         var userPick = $(this).data("name");
 
-        if (userPick == solution.correct){
+        if (userPick == solution.correct) {
             $("#question").html("Correct!");
             correct++;
+            stopTimer();
         } else {
             $("#question").html("Good Guess!<br>The correct answer is: " + solution.correct);
             incorrect++;
+            stopTimer();
         }
-      });   
+    });
 });
