@@ -64,10 +64,11 @@ window.onload = (function () {
 
     //create function for displaying a questions/answers set
     function displayQuestion() {
-        $("#timer").html(timer);
+        timer = 21;
+        runTimer();
         $("#question").html(solution.question);
         for (var i = 0; i < solution.answer.length; i++) {
-            var answerButton = $("<button class='answerButton' id='button' data-name='" + solution.answer[i] + "'>" + solution.answer[i] + "</button>");
+            var answerButton = $("<button class='answerButton' id='button' data-name='" + solution.answer[i] + "'>" + solution.answer[i] + "</button><br><br>");
             $("#answers").append(answerButton);
         }
     }
@@ -75,11 +76,13 @@ window.onload = (function () {
     //create function to display the first question when begin button is clicked
     $("#begin").on("click", function () {
         $("#begin").hide();
-        displayQuestion();
         timerInterval = setInterval(runTimer, 1000);
+        displayQuestion();
+        correctOrNot ();
     });
 
     //create on click function to determine if user picked correctly
+    function correctOrNot (){
     $(document).on("click", "#button", function () {
         var userPick = $(this).data("name");
 
@@ -95,6 +98,7 @@ window.onload = (function () {
             startQuesTimer();
         }
     });
+    }
 
     //create function to count down 3 seconds between questions
     var questionTimer = 0;
@@ -104,7 +108,10 @@ window.onload = (function () {
         questionTimer++;
         if (questionTimer === 5) {
             stopTimer();
+            timerInterval = setInterval(runTimer, 1000);
+            $("#question, #answers").empty ();
             displayQuestion();
+            correctOrNot ();
         }
     }
 });
