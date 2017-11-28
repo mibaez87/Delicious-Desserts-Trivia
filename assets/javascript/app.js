@@ -46,7 +46,7 @@ window.onload = (function () {
     var incorrect = 0;
 
     //create function to start and display timer countdown
-    function startTimer() {
+    function runTimer() {
         timer--;
         $("#timer").html(timer);
         if (timer === 0) {
@@ -73,11 +73,11 @@ window.onload = (function () {
     }
 
     //create function to display the first question when begin button is clicked
-        $("#begin").on("click", function () {
-            $("#begin").hide();
-            displayQuestion();
-            timerInterval = setInterval(startTimer, 1000);
-        });
+    $("#begin").on("click", function () {
+        $("#begin").hide();
+        displayQuestion();
+        timerInterval = setInterval(runTimer, 1000);
+    });
 
     //create on click function to determine if user picked correctly
     $(document).on("click", "#button", function () {
@@ -87,10 +87,24 @@ window.onload = (function () {
             $("#question").html("Correct!");
             correct++;
             stopTimer();
+            startQuesTimer();
         } else {
             $("#question").html("Good Guess!<br>The correct answer is: " + solution.correct);
             incorrect++;
             stopTimer();
+            startQuesTimer();
         }
     });
+
+    //create function to count down 3 seconds between questions
+    var questionTimer = 0;
+
+    function startQuesTimer() {
+        timerInterval = setInterval(startQuesTimer, 1000);
+        questionTimer++;
+        if (questionTimer === 5) {
+            stopTimer();
+            displayQuestion();
+        }
+    }
 });
